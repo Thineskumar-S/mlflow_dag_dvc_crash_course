@@ -5,7 +5,7 @@ import tensorflow.keras
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from dagshub import dagshub_logger
+
 
 
 def get_datasets(validation_ratio=0.2, target_img_size=64, batch_size=32):
@@ -102,14 +102,6 @@ if __name__ == "__main__":
     print("Evaluating the model...")
     test_loss, test_accuracy = model.evaluate(test_set)
     print("Evaluating completed.")
-
-    with dagshub_logger() as logger:
-        logger.log_metrics(loss=test_loss, accuracy=test_accuracy)
-        logger.log_hyperparams({
-            "img_size": IMG_SIZE,
-            "learning_rate": LR,
-            "epochs": EPOCHS
-        })
 
 
     print("Saving the model...")
